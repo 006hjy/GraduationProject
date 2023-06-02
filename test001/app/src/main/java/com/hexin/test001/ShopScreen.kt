@@ -48,7 +48,7 @@ fun ShopScreen(current: Context) {
     var showcard by remember { mutableStateOf(false) }
     var showinfo by remember { mutableStateOf("") }
     var tip by remember { mutableStateOf("init") }
-    var tipVisible by remember { mutableStateOf(false) }
+//    var tipVisible by remember { mutableStateOf(false) }
     BackHandler {
         // 这里定义返回键的逻辑
         if (showcard) showcard = false
@@ -60,9 +60,10 @@ fun ShopScreen(current: Context) {
         }
     }
     LaunchedEffect(tip) {
-        tipVisible = true
+//        tipVisible = true
         delay(2000)
-        tipVisible = false
+//        tipVisible = false
+        tip = "init"
     }
     //使用 LaunchedEffect 在界面创建时做网络请求获取数字
     LaunchedEffect(true) {
@@ -160,7 +161,6 @@ fun ShopScreen(current: Context) {
                                             )
                                         )
                                     }
-
                                 }
                             }
                         }
@@ -294,7 +294,7 @@ fun ShopScreen(current: Context) {
             }
         }
 
-        if (tipVisible and (tip != "init")) {
+        if (tip != "init") {
             Snackbar(
                 modifier = Modifier
                     .padding(10.dp)
