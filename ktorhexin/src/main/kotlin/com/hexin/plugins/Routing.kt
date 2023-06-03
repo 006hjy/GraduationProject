@@ -16,7 +16,7 @@ fun Application.configureRouting() {
             val password = call.parameters["password"]
 
             if (username != null && password != null) {
-                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "hjy101101000")
+                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password")
 
                 // Check if user exists
                 var stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")
@@ -52,7 +52,7 @@ fun Application.configureRouting() {
             val order = call.parameters["order"]?.toIntOrNull()
 
             if (order != null && order > 0) {
-                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "hjy101101000")
+                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password")
                 val stmt = conn.createStatement()
                 val rs = stmt.executeQuery("SELECT * FROM books ORDER BY book_id DESC LIMIT ${order - 1}, 1")
                 if (rs.next()) {
@@ -85,7 +85,7 @@ fun Application.configureRouting() {
             val contact = call.parameters["contact"]
 
             // 验证用户名和密码是否正确
-            val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "hjy101101000")
+            val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password")
             val stmt = conn.prepareStatement("SELECT user_id FROM users WHERE username = ? AND password = ?")
             stmt.setString(1, username)
             stmt.setString(2, password)
@@ -112,7 +112,7 @@ fun Application.configureRouting() {
             }
         }
         get("/booknumber") {
-            val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "hjy101101000")
+            val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password")
             val stmt = conn.createStatement()
             val rs = stmt.executeQuery("SELECT COUNT(*) FROM books;")
             rs.next()
@@ -131,7 +131,7 @@ fun Application.configureRouting() {
             if (username == null || password == null || bookId == null) {
                 call.respondText("格式错误")
             } else {
-                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "hjy101101000")
+                val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "root", "password")
 
                 // 验证账号密码是否正确
                 val stmt = conn.prepareStatement("SELECT user_id FROM users WHERE username=? AND password=?")
